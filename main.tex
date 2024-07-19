@@ -7,165 +7,175 @@
 % Set page size and margins
 % Replace `letterpaper' with `a4paper' for UK/EU standard size
 \usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
-
+\usepackage{siunitx}
 % Useful packages
 \usepackage{amsmath}
+\usepackage{amssymb}
 \usepackage{graphicx}
 \usepackage[colorlinks=true, allcolors=blue]{hyperref}
 
-\title{Machine Characterization Before 20204-08/09 Shutdown}
+\newcommand{\pcheckmark}{\checkmark\makebox[0pt][r]{\normalfont\symbol{'26}}}
+
+\title{Machine Characterization Before 2024-08/09 Shutdown}
 \author{FAC}
 
 \begin{document}
 \maketitle
 
 \begin{abstract}
-Machine characterization before big 2024 machine shutdown from 29th of July to 19th of October.
+Machine characterization before long 2024 machine shutdown from 29th of July to 19th of October. The idea is to have reference images and values to compare to with corresponding data from the beam during machine recovery after the substantial changes that will take place in the long shutdown.
 \end{abstract}
 
 \section{Planning}
 
+The list below contains all steps intended for characterization of the machine state before the shutdown. Steps with checkmarks (\checkmark) have been taken completely, steps with partial checkmarks (\pcheckmark) have been partially taken, while steps without symbols were skipped during the experiment.
 \begin{itemize}
 \item Preparations
 \begin{itemize}
-\item Set operation mode to "machine study"
-\item Park IDs and disable control by beamlines
-\item Dump the beam
+\item Set operation mode to "machine study" \checkmark
+\item Park IDs and disable control by beamlines \checkmark
+\item Dump the beam \checkmark
 \end{itemize}
 \item Injector LI
 \begin{itemize}
 \item Configure Booster ejection kicker to kick at low energy
-\item Optimize Booster injection (manually or using RCDS algorithm)
-\item Save LI screen images Scrn1, Scrn2 and Scrn3
-\item Measure Linac energy and energy spread (save window pictures)
-\item Measure Linac emittance (save window printscreen)
-\item Cycle spectrometer
+\item Optimize Booster injection (manually or using RCDS algorithm) \checkmark
+\item Save LI screen images Scrn1, Scrn2 and Scrn3 \checkmark
+\item Measure Linac energy and energy spread (save window pictures) \checkmark
+\item Measure Linac emittance (save window printscreen) \checkmark
+\item Cycle spectrometer \checkmark
 \end{itemize}
 \item Injector BO
 \begin{itemize}
-\item Optimize Booster injection (manually or using RCDS algorithm)
-\item Set Booster ejection kicker to kick at 3 GeV
+\item Optimize Booster injection (manually or using RCDS algorithm) \checkmark
+\item Set Booster ejection kicker to kick at 3 GeV \checkmark
 \item Set injection mode to "optimize"
 \item Correct BO orbit along ramp
-\item Save TB trajectory reference and window printscreen
-\item Save Booster screen images
+\item Save TB trajectory reference and window printscreen \pcheckmark
+\item Save Booster screen images \pcheckmark
 \end{itemize}
 \item SI Injection
 \begin{itemize}
-\item Optimize SI injection (did we already try to run RCDS?)
-\item Save TS trajectory reference and window printscreen
-\item Save SI screen images
+\item Optimize SI injection (did we already try to run RCDS?) \checkmark
+\item Save TS trajectory reference and window printscreen \pcheckmark
 \end{itemize}
 \item SI Optics Symmetrization
 \begin{itemize}
 \item Set injection mode to "accumulation" and inject 100 mA
-\item Correct tunes and save window printscreen
-\item LOCO measurements, analysis, corrections
+\item Correct tunes and save window printscreen \pcheckmark
+\item LOCO measurements, analysis, corrections \checkmark
 \item Coupling measurements and corrections
 \item Magnets cycling
 \end{itemize}
 \item SI Optics Characterization
 \begin{itemize}
-\item Inject 100 mA
+\item Inject 100 mA \checkmark
 \item Save scope references and images
-\item Test SOFB and FOFB
+\item Test SOFB and FOFB \checkmark
 \item BbB optimization and characterization, save config and printscreens
-\item Test top-up.
-\item Cromaticity measurements
+\item Test top-up. \checkmark
+\item Cromaticity measurements \checkmark
 \item Dynamical aperture measurements
-\item BPM Acquisitions (TbT, FOFB and FAcq). Optical analysis
-\item Save beam images from carcará
-\item Save global, diagnostics, ... ?, configurations
+\item BPM Acquisitions (TbT, FOFB and FAcq). Optical analysis \checkmark
+\item Save beam images from carcará \checkmark
+\item Save global, diagnostics, ... ?, configurations \checkmark
 \end{itemize}
 \end{itemize}
+
 
 \section{Experiment Report}
 
-% \section{Some examples to get started}
+All acquired data in the experiment are in the control room desktops' folder 
+\begin{verbatim}
+/home/sirius/shared/screens-iocs/data_by_day/
+2024-07-16-AS_machine_characterization_before_shutdown
+\end{verbatim}
 
-% \subsection{How to create Sections and Subsections}
+\subsection{Injection Problems}
+We started the experiment with a 70 mA beam in decay mode. We decided to test the injection, and at the start, we realized that no beam was even being ramped in the Booster, despite some posang variations.
+\begin{itemize}
+\item No beam was ramping in the Booster. However, we did observe beam in the Linac ICTs and TB BPMs.
+\item We cycled the TB transport line. This did not work.
+\item We realized that the Linac power supplies were turned off the previous night, before the last accumulation, without prior cycling. After 100 mA accumulation, scripted FOFB studies were run, injecting beam up to 100 mA every 6 minutes. At around 00:34, the injection stopped working, and the beam decayed to 70 mA by around 08:15 the next day.
+\item We decided to cycle the Linac, but this did not solve the injection problem.
+\item We then moved to looking at the beam in the Linac using the beam profile screens. The screen movement controls were out of order. Andrei helped fix the problem after a few minutes.
+\item We set the spectrometer to $\approx$14.5 to 14.9 A to guide the beam 45 degrees to diagnostics screen 4.
+\item The energy measurement from the Screen 4 beam image was not working. We decided to initialize the corresponding IOC.
+\item We encountered problems using Portainer to access the Docker container for reinitialization. After a few minutes, we were informed that the service login procedure had changed: authentication now uses a fixed user with a given password, which happens to be the same user and password of the control room desktops.
+\item Energy measurement was performed. We had to set the Klystron 2 amplitude to 70.6 V in order to measure the typical 146.5-147.0 MeV measured in April. Measured energy spread was also typical. A screenshot was saved.
+\item We then cycled the Linac once more but had interlock problems with the power supplies of solenoids. Walter went down to the Klystron area to reset the power supplies, but the interlock signal remained alarmed in the IOC. We rebooted these IOCs, and the problem was solved, enabling us to successfully cycle the Linac.
+\item We loaded the Linac configuration and set the Klystron 2 amplitude to 70.6 V again. We finally were able to consistently ramp the beam in the Booster, albeit with low efficiency.
+\item A temporary global configuration was saved, we killed the beam and cycled all magnets.
+\item Booster ramp flipped (measured a negative average vertical orbit), we loaded the "flop" configuration and the ramp efficienty improved
+\item Injection and Booster ramp was otimized with posang variations. Klystron 2 amplitude kept at 70.6 V.
+\end{itemize}
 
-% Simply use the section and subsection commands, as in this example document! With Overleaf, all the formatting and numbering is handled automatically according to the template you've chosen. If you're using the Visual Editor, you can also create new section and subsections via the buttons in the editor toolbar.
-
-% \subsection{How to include Figures}
-
-% First you have to upload the image file from your computer using the upload link in the file-tree menu. Then use the includegraphics command to include it in your document. Use the figure environment and the caption command to add a number and a caption to your figure. See the code for Figure \ref{fig:frog} in this section for an example.
-
-% Note that your figure will automatically be placed in the most appropriate place for it, given the surrounding text and taking into account other figures or tables that may be close by. You can find out more about adding images to your documents in this help article on \href{https://www.overleaf.com/learn/how-to/Including_images_on_Overleaf}{including images on Overleaf}.
-
-% \begin{figure}
-% \centering
-% \includegraphics[width=0.25\linewidth]{frog.jpg}
-% \caption{\label{fig:frog}This frog was uploaded via the file-tree menu.}
-% \end{figure}
-
-% \subsection{How to add Tables}
-
-% Use the table and tabular environments for basic tables --- see Table~\ref{tab:widgets}, for example. For more information, please see this help article on \href{https://www.overleaf.com/learn/latex/tables}{tables}. 
-
-% \begin{table}
-% \centering
-% \begin{tabular}{l|r}
-% Item & Quantity \\\hline
-% Widgets & 42 \\
-% Gadgets & 13
-% \end{tabular}
-% \caption{\label{tab:widgets}An example table.}
-% \end{table}
-
-% \subsection{How to add Comments and Track Changes}
-
-% Comments can be added to your project by highlighting some text and clicking ``Add comment'' in the top right of the editor pane. To view existing comments, click on the Review menu in the toolbar above. To reply to a comment, click on the Reply button in the lower right corner of the comment. You can close the Review pane by clicking its name on the toolbar when you're done reviewing for the time being.
-
-% Track changes are available on all our \href{https://www.overleaf.com/user/subscription/plans}{premium plans}, and can be toggled on or off using the option at the top of the Review pane. Track changes allow you to keep track of every change made to the document, along with the person making the change. 
-
-% \subsection{How to add Lists}
-
-% You can make lists with automatic numbering \dots
-
-% \begin{enumerate}
-% \item Like this,
-% \item and like this.
-% \end{enumerate}
-% \dots or bullet points \dots
-% \begin{itemize}
-% \item Like this,
-% \item and like this.
-% \end{itemize}
-
-% \subsection{How to write Mathematics}
-
-% \LaTeX{} is great at typesetting mathematics. Let $X_1, X_2, \ldots, X_n$ be a sequence of independent and identically distributed random variables with $\text{E}[X_i] = \mu$ and $\text{Var}[X_i] = \sigma^2 < \infty$, and let
-% \[S_n = \frac{X_1 + X_2 + \cdots + X_n}{n}
-%       = \frac{1}{n}\sum_{i}^{n} X_i\]
-% denote their mean. Then as $n$ approaches infinity, the random variables $\sqrt{n}(S_n - \mu)$ converge in distribution to a normal $\mathcal{N}(0, \sigma^2)$.
+\subsection{Beam characterization at the Linac}
+\subsubsection{Typical Charge}
+\begin{itemize}
+\item The value of $\SI{-31.5}{\volt}$ for the EGun bias was set in order to extract $\SI{1.7}{\nano \coulomb}$ beam charge from the Linac.
+\item Linac screens 1, 2 and 3 were moved to the beam path in order to register beam profiles one at a time. Initially screen images were acquired with the common trigger LI:Fam:TI-Scrn raw delay of 1776384. With this delay the image at screens 1 and 3 were a little dimmer and at screen 2 was ok.
+\item We used a different raw delay value for each screen as to have a good intensity beam image: 1775884 for screen 1, 1776384 for screen 2 and 1775874 for screen 3. All three beam images from the screens were registered.
+\item We proceeded next with the energy measurement. We restored the initial value of 1776384 for the screens trigger raw delay and run the measurement. We measured a value of $\SI{146.5}{\mega \electronvolt}$ for the beam energy and $\SI{0.3}{\percent}$ of energy spread.
+\item Next we performed emittance measurement. For screen 5 we needed to use a trigger delay of 2008790 in order to avoid image saturation.
+\item During this measurement we noticed that around 14h26 the beam charge, as measured in the oscilloscope for ICT1, increased from $\SI{1.7}{\nano \coulomb}$ 
+to $\SI{2.2}{\nano \coulomb}$ unexpectedly. We could not figure out what caused this change, as the EGun bias voltage was kept unaltered. 
+\item Five independent horizontal emittance measurements were taken, whose average was $\SI{11.9}{\milli \meter\milli \radian}$. Vertical emittance measurements were taken latter, after high-charge characterization, and the three measured values averaged to $\SI{16.9}{\milli \meter\milli\radian}$.
+\item We then cycled the spectrometer in order to check injection if injection and ramp in the Booster was ok at high Linac charges.
+\end{itemize}
+\subsubsection{High Charge}
+\begin{itemize}
+\item We repeated the previous characterization now with high charge of $\SI{3.3}{\nano\coulomb}$ using a EGun bias of $\SI{-30}{\volt}$. 
+\item For the registration of beam images at the Linac we started with triger raw delays of the previous settings but the image at screen 2 we needed to set it to 1783784 to avoid saturation.
+\item Beam images from screens 1, 2 nd 3 were registered.
+\item The beam energy measured was $\SI{147.2}{\mega electronvolt}$ with spread of $\SI{0.23}{\percent}$.
+\item Horizontal and vertical measured emittances were $\SI{17.0}{\milli\meter \milli\radian}$ and $\SI{16.9}{\milli\meter \milli\radian}$, recpectively.
+\end{itemize}
 
 
-% \subsection{How to change the margins and paper size}
+\subsection{Otimization of Injection and Energy Ramp at the Booster and Injection into the Storage Ring}
+\begin{itemize}
+    \item Variations of posang parameters and Klystron 2 amplitude of $\SI{70.9}{\volt}$ lead to good injection and energy ramp at the booster at high charges.
+    \item Also PosAng adjustments lead to $\SI{90}{\percent}$ efficiency in the storage ring injection.
+\end{itemize}
 
-% Usually the template you're using will have the page margins and paper size set correctly for that use-case. For example, if you're using a journal article template provided by the journal publisher, that template will be formatted according to their requirements. In these cases, it's best not to alter the margins directly.
 
-% If however you're using a more general template, such as this one, and would like to alter the margins, a common way to do so is via the geometry package. You can find the geometry package loaded in the preamble at the top of this example file, and if you'd like to learn more about how to adjust the settings, please visit this help article on \href{https://www.overleaf.com/learn/latex/page_size_and_margins}{page size and margins}.
+\subsection{Beam Profile Characterization in TB transport line}
+\begin{itemize}
+    \item Beam images from the screens were registered.
+    \item TB-01:DI-Scrn-1: not operational!
+    \item TB-01:DI-Scrn-2: trigger raw delay of 1779682
+    \item TB-02:DI-Scrn-1: trigger war delay of 1779682
+    \item TB-02:DI-Scrn-2: trigger war delay of 1779532
+    \item TB-03:DI-Scrn: trigger war delay of 1779682
+    \item TB-04:DI-Scrn: trigger war delay of 1779682
+\end{itemize}
 
-% \subsection{How to change the document language and spell check settings}
+\subsection{Beam Profile Characterization in Booster}
+\begin{itemize}
+    \item Beam images from the three screens were registered for high charge. We did not have to adjust the trigger delay.
+\end{itemize}
 
-% Overleaf supports many different languages, including multiple different languages within one document. 
+\subsection{Beam Profile Characterization in TS transport line}
+\begin{itemize}
+    \item Beam images from the working screens were registered for high charge. We did not have to adjust the trigger delay.
+    \item Operational screens: TS-01:DI-Scrn, TS-02:DI-Scrn and TS-04:DI-Scrn-1
+    \item Non-operation screens: TS-03:DI-Scrn and TS-04:DI-Scrn-2
+\end{itemize}
 
-% To configure the document language, simply edit the option provided to the babel package in the preamble at the top of this example project. To learn more about the different options, please visit this help article on \href{https://www.overleaf.com/learn/latex/International_language_support}{international language support}.
+\subsection{Beam Characterization in the Storage Ring}
+\begin{itemize}
+    \item Simultaneous to the injection characterization, at a beam current of 25 mA, me measured orbit response matriz and did a LOCO analysis.
+    \item The analysis showed typical beta beating and quadrupolar trim correctors; But the coupling in the fitted model was $\SI{1.5}{\percent}$, higher than our target of $\SI{1.0}{\percent}$
+    \item Correction was applied and a second reposnse matrix and analysis was carried out, showing a fitted model coupling of $\SI{1.0}{\percent}$
+    \item We injected 100 mA and measured the orbit response matrix again for an additional LOCO analysis a poteriori at high currents.
+    \item We saved a Carcara beam image
+    \item Did chromaticity measurements
+    \item Saved transport lines trajetory images and references
+    \item Trigguered BPM acquisions with closed and open orbit corrections loops    
+\end{itemize}
 
-% To change the spell check language, simply open the Overleaf menu at the top left of the editor window, scroll down to the spell check setting, and adjust accordingly.
-
-% \subsection{How to add Citations and a References List}
-
-% You can simply upload a \verb|.bib| file containing your BibTeX entries, created with a tool such as JabRef. You can then cite entries from it, like this: \cite{greenwade93}. Just remember to specify a bibliography style, as well as the filename of the \verb|.bib|. You can find a \href{https://www.overleaf.com/help/97-how-to-include-a-bibliography-using-bibtex}{video tutorial here} to learn more about BibTeX.
-
-% If you have an \href{https://www.overleaf.com/user/subscription/plans}{upgraded account}, you can also import your Mendeley or Zotero library directly as a \verb|.bib| file, via the upload menu in the file-tree.
-
-% \subsection{Good luck!}
-
-% We hope you find Overleaf useful, and do take a look at our \href{https://www.overleaf.com/learn}{help library} for more tutorials and user guides! Please also let us know if you have any feedback using the Contact Us link at the bottom of the Overleaf menu --- or use the contact form at \url{https://www.overleaf.com/contact}.
-
-\bibliographystyle{alpha}
-\bibliography{sample}
+% \bibliographystyle{alpha}
+% \bibliography{sample}
 
 \end{document}
