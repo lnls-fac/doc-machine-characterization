@@ -23,7 +23,7 @@
 \maketitle
 
 \begin{abstract}
-Machine characterization before long 2024 machine shutdown from 29th of July to 19th of October. The idea is to have reference images and values to compare to with corresponding data from the beam during machine recovery after the substantial changes that will take place in the long shutdown.
+Machine characterization on 2024-07-16 and on 2024-07-22, before the long 2024 machine shutdown from 29th of July to 19th of October. The idea is to have reference images and values to compare to with corresponding data from the beam during machine recovery after the substantial changes that will take place in the long shutdown.
 \end{abstract}
 
 \section{Planning}
@@ -83,13 +83,14 @@ The list below contains all steps intended for characterization of the machine s
 \end{itemize}
 
 
-\section{Experiment Report}
+\section{Experiment Report - 2024-07-16}
 
-All acquired data in the experiment are in the control room desktops' folder 
+All acquired data in this day's experiment are in control room desktops' folder 
 \begin{verbatim}
 /home/sirius/shared/screens-iocs/data_by_day/
 2024-07-16-AS_machine_characterization_before_shutdown
 \end{verbatim}
+The corresponding OLog entry can be accessed with in \href{https://ais-eng-srv-ta.cnpem.br/Olog/index.html#22932_2}{OLog 22932}
 
 \subsection{Injection Problems}
 We started the experiment with a 70 mA beam in decay mode. We decided to test the injection, and at the start, we realized that no beam was even being ramped in the Booster, despite some posang variations.
@@ -100,7 +101,7 @@ We started the experiment with a 70 mA beam in decay mode. We decided to test th
 \item We decided to cycle the Linac, but this did not solve the injection problem.
 \item We then moved to looking at the beam in the Linac using the beam profile screens. The screen movement controls were out of order. Andrei helped fix the problem after a few minutes.
 \item We set the spectrometer to $\approx$14.5 to 14.9 A to guide the beam 45 degrees to diagnostics screen 4.
-\item The energy measurement from the Screen 4 beam image was not working. We decided to initialize the corresponding IOC.
+\item The energy measurement from the Screen 4 beam image was not working. We decided to reinitialize the corresponding IOC.
 \item We encountered problems using Portainer to access the Docker container for reinitialization. After a few minutes, we were informed that the service login procedure had changed: authentication now uses a fixed user with a given password, which happens to be the same user and password of the control room desktops.
 \item Energy measurement was performed. We had to set the Klystron 2 amplitude to 70.6 V in order to measure the typical 146.5-147.0 MeV measured in April. Measured energy spread was also typical. A screenshot was saved.
 \item We then cycled the Linac once more but had interlock problems with the power supplies of solenoids. Walter went down to the Klystron area to reset the power supplies, but the interlock signal remained alarmed in the IOC. We rebooted these IOCs, and the problem was solved, enabling us to successfully cycle the Linac.
@@ -128,7 +129,7 @@ to $\SI{2.2}{\nano \coulomb}$ unexpectedly. We could not figure out what caused 
 \item We repeated the previous characterization now with high charge of $\SI{3.3}{\nano\coulomb}$ using a EGun bias of $\SI{-30}{\volt}$. 
 \item For the registration of beam images at the Linac we started with triger raw delays of the previous settings but the image at screen 2 we needed to set it to 1783784 to avoid saturation.
 \item Beam images from screens 1, 2 nd 3 were registered.
-\item The beam energy measured was $\SI{147.2}{\mega electronvolt}$ with spread of $\SI{0.23}{\percent}$.
+\item The beam energy measured was $\SI{147.2}{\mega \electronvolt}$ with spread of $\SI{0.23}{\percent}$.
 \item Horizontal and vertical measured emittances were $\SI{17.0}{\milli\meter \milli\radian}$ and $\SI{16.9}{\milli\meter \milli\radian}$, recpectively.
 \end{itemize}
 
@@ -145,10 +146,10 @@ to $\SI{2.2}{\nano \coulomb}$ unexpectedly. We could not figure out what caused 
     \item Beam images from the screens were registered.
     \item TB-01:DI-Scrn-1: not operational!
     \item TB-01:DI-Scrn-2: trigger raw delay of 1779682
-    \item TB-02:DI-Scrn-1: trigger war delay of 1779682
-    \item TB-02:DI-Scrn-2: trigger war delay of 1779532
-    \item TB-03:DI-Scrn: trigger war delay of 1779682
-    \item TB-04:DI-Scrn: trigger war delay of 1779682
+    \item TB-02:DI-Scrn-1: trigger raw delay of 1779682
+    \item TB-02:DI-Scrn-2: trigger raw delay of 1779532
+    \item TB-03:DI-Scrn: trigger raw delay of 1779682
+    \item TB-04:DI-Scrn: trigger raw delay of 1779682
 \end{itemize}
 
 \subsection{Beam Profile Characterization in Booster}
@@ -165,17 +166,29 @@ to $\SI{2.2}{\nano \coulomb}$ unexpectedly. We could not figure out what caused 
 
 \subsection{Beam Characterization in the Storage Ring}
 \begin{itemize}
-    \item Simultaneous to the injection characterization, at a beam current of 25 mA, me measured orbit response matriz and did a LOCO analysis.
+    \item Simultaneous to the injection characterization, at a beam current of 25 mA, we measured orbit response matrix and did a LOCO analysis.
     \item The analysis showed typical beta beating and quadrupolar trim correctors; But the coupling in the fitted model was $\SI{1.5}{\percent}$, higher than our target of $\SI{1.0}{\percent}$
-    \item Correction was applied and a second reposnse matrix and analysis was carried out, showing a fitted model coupling of $\SI{1.0}{\percent}$
-    \item We injected 100 mA and measured the orbit response matrix again for an additional LOCO analysis a poteriori at high currents.
+    \item Correction was applied and a second response matrix measurement and analysis was carried out, showing a fitted model coupling of $\SI{1.0}{\percent}$
+    \item We injected 100 mA and measured the orbit response matrix again for an additional LOCO analysis at high currents.
     \item We saved a Carcara beam image
     \item Did chromaticity measurements
     \item Saved transport lines trajetory images and references
-    \item Trigguered BPM acquisions with closed and open orbit corrections loops    
+    \item Triggered BPM acquisions with closed and open orbit corrections loops    
 \end{itemize}
 
-% \bibliographystyle{alpha}
-% \bibliography{sample}
+\section{Experiment Report - 2024-07-22}
+
+On this second machine study we acquired beam image from the screens that mafunctioned in the previous study. An EGun bias voltage was set to yield 3 nC at Linac ICT1. 
+
+Screen TS-04:DI-Scrn-3 was still not operational. Andrei (ARO) mentioned that an physical inspection inside the tunnel is needed in order to understand what is happening to this screen. Wescreen motors are now operating with slow torque rendering a long waiting time for the screens to finish their movements.
+
+
+
+All acquired data in this day's experiment are in control room desktops' folder 
+\begin{verbatim}
+/home/sirius/shared/screens-iocs/data_by_day/
+2024-07-22-AS_machine_characterization_screens_images
+\end{verbatim}
+The corresponding OLog entry can be accessed with in \href{https://ais-eng-srv-ta.cnpem.br/Olog/index.html?reason=not_logged_in#22983_2}{OLog 22983}
 
 \end{document}
